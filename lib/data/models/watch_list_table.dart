@@ -1,28 +1,37 @@
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:equatable/equatable.dart';
 
-class MovieTable extends Equatable {
+class WatchListTable extends Equatable {
   final int id;
   final String? title;
   final String? posterPath;
   final String? overview;
 
-  MovieTable({
+  WatchListTable({
     required this.id,
     required this.title,
     required this.posterPath,
     required this.overview,
   });
 
-  factory MovieTable.fromEntity(MovieDetail movie) => MovieTable(
+  factory WatchListTable.fromMovieEntity(MovieDetail movie) => WatchListTable(
         id: movie.id,
         title: movie.title,
         posterPath: movie.posterPath,
         overview: movie.overview,
       );
 
-  factory MovieTable.fromMap(Map<String, dynamic> map) => MovieTable(
+  factory WatchListTable.fromTvSeriesEntity(TvSeriesDetail tvSeries) => WatchListTable(
+    id: tvSeries.id,
+    title: tvSeries.name,
+    posterPath: tvSeries.posterPath,
+    overview: tvSeries.overview,
+  );
+
+  factory WatchListTable.fromMap(Map<String, dynamic> map) => WatchListTable(
         id: map['id'],
         title: map['title'],
         posterPath: map['posterPath'],
@@ -36,12 +45,19 @@ class MovieTable extends Equatable {
         'overview': overview,
       };
 
-  Movie toEntity() => Movie.watchlist(
+  Movie toMovieEntity() => Movie.watchlist(
         id: id,
         overview: overview,
         posterPath: posterPath,
         title: title,
       );
+
+  TvSeries toTvSeriesEntity() => TvSeries(
+    id: id,
+    overview: overview ?? '',
+    posterPath: posterPath ?? '',
+    name: title ?? '',
+  );
 
   @override
   // TODO: implement props
