@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,14 +12,14 @@ import 'watchlist_movie_notifier_test.mocks.dart';
 
 @GenerateMocks([GetWatchlistMovies])
 void main() {
-  late WatchlistMovieNotifier provider;
+  late WatchlistNotifier provider;
   late MockGetWatchlistMovies mockGetWatchlistMovies;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
     mockGetWatchlistMovies = MockGetWatchlistMovies();
-    provider = WatchlistMovieNotifier(
+    provider = WatchlistNotifier(
       getWatchlistMovies: mockGetWatchlistMovies,
     )..addListener(() {
         listenerCallCount += 1;
@@ -33,7 +33,7 @@ void main() {
     // act
     await provider.fetchWatchlistMovies();
     // assert
-    expect(provider.watchlisMovietState, RequestState.Loaded);
+    expect(provider.watchlistMovieState, RequestState.Loaded);
     expect(provider.watchlistMovies, [testWatchlistMovie]);
     expect(listenerCallCount, 2);
   });
@@ -45,7 +45,7 @@ void main() {
     // act
     await provider.fetchWatchlistMovies();
     // assert
-    expect(provider.watchlisMovietState, RequestState.Error);
+    expect(provider.watchlistMovieState, RequestState.Error);
     expect(provider.message, "Can't get data");
     expect(listenerCallCount, 2);
   });

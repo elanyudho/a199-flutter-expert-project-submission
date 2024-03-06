@@ -11,7 +11,7 @@ import '../../common/state_enum.dart';
 import '../../data/models/tv_series_detail_model.dart';
 
 class TvSeriesDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail_tv_series';
+  static const ROUTE_NAME = '/detail-tv-series';
 
   final int id;
   TvSeriesDetailPage({required this.id});
