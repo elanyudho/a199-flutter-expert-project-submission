@@ -73,13 +73,6 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
-              },
-              leading: Icon(Icons.info_outline),
-              title: Text('About'),
-            ),
-            ListTile(
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
