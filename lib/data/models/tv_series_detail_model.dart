@@ -6,7 +6,9 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import '../../domain/entities/genre.dart';
 import '../../domain/entities/tv_series_detail.dart';
+
 
 TvSeriesDetailResponse detailTvSeriesResponseFromJson(String str) => TvSeriesDetailResponse.fromJson(json.decode(str));
 
@@ -17,14 +19,13 @@ class TvSeriesDetailResponse extends Equatable {
   final String backdropPath;
   final List<int> episodeRunTime;
   final DateTime firstAirDate;
-  final List<Genre> genres;
+  final List<GenreResponse> genres;
   final String homepage;
   final int id;
   final bool inProduction;
   final List<String> languages;
   final DateTime lastAirDate;
   final String name;
-  final dynamic nextEpisodeToAir;
   final int numberOfEpisodes;
   final int numberOfSeasons;
   final List<String> originCountry;
@@ -51,7 +52,6 @@ class TvSeriesDetailResponse extends Equatable {
     required this.languages,
     required this.lastAirDate,
     required this.name,
-    required this.nextEpisodeToAir,
     required this.numberOfEpisodes,
     required this.numberOfSeasons,
     required this.originCountry,
@@ -72,14 +72,13 @@ class TvSeriesDetailResponse extends Equatable {
     backdropPath: json["backdrop_path"],
     episodeRunTime: List<int>.from(json["episode_run_time"].map((x) => x)),
     firstAirDate: DateTime.parse(json["first_air_date"]),
-    genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
+    genres: List<GenreResponse>.from(json["genres"].map((x) => GenreResponse.fromJson(x))),
     homepage: json["homepage"],
     id: json["id"],
     inProduction: json["in_production"],
     languages: List<String>.from(json["languages"].map((x) => x)),
     lastAirDate: DateTime.parse(json["last_air_date"]),
     name: json["name"],
-    nextEpisodeToAir: json["next_episode_to_air"],
     numberOfEpisodes: json["number_of_episodes"],
     numberOfSeasons: json["number_of_seasons"],
     originCountry: List<String>.from(json["origin_country"].map((x) => x)),
@@ -107,7 +106,6 @@ class TvSeriesDetailResponse extends Equatable {
     "languages": List<dynamic>.from(languages.map((x) => x)),
     "last_air_date": "${lastAirDate.year.toString().padLeft(4, '0')}-${lastAirDate.month.toString().padLeft(2, '0')}-${lastAirDate.day.toString().padLeft(2, '0')}",
     "name": name,
-    "next_episode_to_air": nextEpisodeToAir,
     "number_of_episodes": numberOfEpisodes,
     "number_of_seasons": numberOfSeasons,
     "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
@@ -127,7 +125,12 @@ class TvSeriesDetailResponse extends Equatable {
     return TvSeriesDetail(
       name: this.name,
       backdropPath: this.backdropPath,
-      genres: this.genres,
+      genres: this.genres.map((genre) {
+        return Genre(
+          id: genre.id,
+          name: genre.name,
+        );
+      }).toList(),
       id: this.id,
       originalName: this.originalName,
       popularity: this.popularity,
@@ -140,20 +143,44 @@ class TvSeriesDetailResponse extends Equatable {
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+    this.adult,
+    this.backdropPath,
+    this.episodeRunTime,
+    this.firstAirDate,
+    this.genres,
+    this.homepage,
+    this.id,
+    this.inProduction,
+    this.languages,
+    this.lastAirDate,
+    this.name,
+    this.numberOfEpisodes,
+    this.numberOfSeasons,
+    this.originCountry,
+    this.originalLanguage,
+    this.originalName,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.status,
+    this.tagline,
+    this.type,
+    this.voteAverage,
+    this.voteCount,
+  ];
 }
 
-class Genre {
+class GenreResponse extends Equatable {
   int id;
   String name;
 
-  Genre({
+  GenreResponse({
     required this.id,
     required this.name,
   });
 
-  factory Genre.fromJson(Map<String, dynamic> json) => Genre(
+  factory GenreResponse.fromJson(Map<String, dynamic> json) => GenreResponse(
     id: json["id"],
     name: json["name"],
   );
@@ -162,4 +189,10 @@ class Genre {
     "id": id,
     "name": name,
   };
+
+  @override
+  List<Object?> get props => [
+   this.id,
+   this.name,
+  ];
 }

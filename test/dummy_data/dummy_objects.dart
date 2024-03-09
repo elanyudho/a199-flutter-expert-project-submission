@@ -1,7 +1,10 @@
+import 'package:ditonton/data/models/tv_series_detail_model.dart';
 import 'package:ditonton/data/models/watch_list_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -57,3 +60,49 @@ final testMovieMap = {
   'posterPath': 'posterPath',
   'title': 'title',
 };
+
+// Tv Series
+final testTvSeriesTable = WatchListTable(
+  id: 1,
+  title: 'Game of Thrones',
+  posterPath: '/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',
+  overview:   "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+
+);
+
+final testTvSeriesMap = {
+  'id': 1,
+  'title': 'Game of Thrones',
+  'posterPath': '/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',
+  'overview':   "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+
+};
+
+final testTvSeriesWatchList = TvSeries(
+  id: 1,
+  name: 'Game of Thrones',
+  posterPath: '/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg',
+  overview:   "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+);
+
+final testTvSeriesDetail = TvSeriesDetail(
+  backdropPath: "/6LWy0jvMpmjoS9fojNgHIKoWL05.jpg",
+  genres: [
+    Genre(id: 10765, name: "Sci-Fi & Fantasy"),
+    Genre(id: 18, name: "Drama"),
+    Genre(id: 10759, name: "Action & Adventure")
+  ],
+  id: 1,
+  name: "Game of Thrones",
+  numberOfSeasons: 8,
+  originalName: "Game of Thrones",
+  overview:
+  "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+  popularity: 346.098,
+  posterPath: "/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg",
+  voteAverage: 8.438,
+  voteCount: 21390,
+);
+
+final testTvSeriesList = [testTvSeriesWatchList];
+

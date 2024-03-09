@@ -1,6 +1,6 @@
+import 'package:ditonton/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../data/models/tv_series_detail_model.dart';
 
 class TvSeriesDetail extends Equatable {
   final String backdropPath;
