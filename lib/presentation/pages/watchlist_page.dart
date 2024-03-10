@@ -35,6 +35,8 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   void didPopNext() {
     Provider.of<WatchlistNotifier>(context, listen: false)
         .fetchWatchlistMovies();
+    Provider.of<WatchlistNotifier>(context, listen: false)
+        .fetchWatchlistTvSeries();
   }
 
   @override

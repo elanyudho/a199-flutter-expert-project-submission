@@ -9,7 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import 'watchlist_movie_notifier_test.mocks.dart';
+import 'watchlist_notifier_test.mocks.dart';
 
 @GenerateMocks([GetWatchlistMovies, GetWatchlistTvSeries])
 void main() {
@@ -50,6 +50,30 @@ void main() {
     await provider.fetchWatchlistMovies();
     // assert
     expect(provider.watchlistMovieState, RequestState.Error);
+    expect(provider.message, "Can't get data");
+    expect(listenerCallCount, 2);
+  });
+
+  test('should change tv series data when data is gotten successfully', () async {
+    // arrange
+    when(mockGetWatchlistTvSeries.execute())
+        .thenAnswer((_) async => Right([testTvSeriesWatchList]));
+    // act
+    await provider.fetchWatchlistTvSeries();
+    // assert
+    expect(provider.watchlistTvSeriesState, RequestState.Loaded);
+    expect(provider.watchlistTvSeries, [testTvSeriesWatchList]);
+    expect(listenerCallCount, 2);
+  });
+
+  test('should return error when data is unsuccessful', () async {
+    // arrange
+    when(mockGetWatchlistTvSeries.execute())
+        .thenAnswer((_) async => Left(DatabaseFailure("Can't get data")));
+    // act
+    await provider.fetchWatchlistTvSeries();
+    // assert
+    expect(provider.watchlistTvSeriesState, RequestState.Error);
     expect(provider.message, "Can't get data");
     expect(listenerCallCount, 2);
   });
